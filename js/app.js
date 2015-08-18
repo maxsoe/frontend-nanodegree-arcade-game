@@ -216,6 +216,16 @@ Player.prototype.handleInput = function(direction) {
   tile[[this.currentCol,this.currentRow]].hasPlayer = 1;
   debugOutput(previousCol +"," +previousRow +" hasPlayer = " +tile[[previousCol,previousRow]].hasPlayer, 1);
   debugOutput(this.currentCol +"," +this.currentRow +" hasPlayer = " +tile[[this.currentCol,this.currentRow]].hasPlayer, 1);
+
+  // Show which tiles has Player in it
+  for (var y = 1; y < 7; y++) { // outter loop scans through each row. There are 6 rows.
+    for (var x = 1; x < 6; x++) { //inner loop scans through each column. There are 5 columns.
+      if (tile[[x,y]].hasPlayer == 1) {
+        debugOutput(x +"," +y +" has player", 1);
+      }
+    }
+  }
+  
 }
 
 // Reset the game
