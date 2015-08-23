@@ -12,17 +12,15 @@ function debugOutput(string, debugMode) {
 
 // Enemies our player must avoid
 var Enemy = function() {
-    // Variables applied to each of our instances go here,
-    // we've provided one for you to get started
 
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
-    this.x = -110; //default position for enemies
+    this.x = -110; // default start position for enemies
     this.name = "Bug";
     this.currentCol = 0;
-    this.currentRow = 2; //default row when an enemy is generated
-    this.speed = 100; //default speed for enemies
+    this.currentRow = 2; // default row when an enemy is generated
+    this.speed = 100; // default speed for enemies
 }
 
 // Update the enemy's position, required method for game
@@ -31,58 +29,51 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
-    // this.currentCol = 0;
-    // this.currentRow = 0;
 
-    if (this.x < 550) {
-      // this.x++;
+    if (this.x < 550) { // while the bugs on the screen
       this.x = this.x + dt*this.speed; // make each enemy move the right based on their own speed and the dt offset
-      // this.x = this.x + 1;
 
-      if ((this.x > (-tileWidth + 15)) && (this.x < (tileWidth - 15))) {
+      if ((this.x > (-tileWidth + 15)) && (this.x < (tileWidth - 15))) { // check if this bug is in the 1st column
         this.currentCol = 1;
-        if ((player.currentCol == this.currentCol) && (this.currentRow == player.currentRow)) {
+        if ((player.currentCol == this.currentCol) && (this.currentRow == player.currentRow)) { // check for collision between bug and player
           debugOutput(this.name + ' is at column ' +this.currentCol, 1);
-          reset();
+          reset(); // reset game if there is a collision
         }
       }
 
-      if ((this.x > 15) && (this.x < (2 * tileWidth - 15))) {
+      if ((this.x > 15) && (this.x < (2 * tileWidth - 15))) { // check if this bug is in the 2nd column
         this.currentCol = 2;
-        if ((player.currentCol == this.currentCol) && (this.currentRow == player.currentRow)) {
+        if ((player.currentCol == this.currentCol) && (this.currentRow == player.currentRow)) { // check for collision between bug and player
           debugOutput(this.name + ' is at column ' +this.currentCol, 1);
-          reset();
+          reset(); // reset game if there is a collision
         }
       }
 
-      if ((this.x > (tileWidth + 15)) && (this.x < (3 * tileWidth - 15))) {
+      if ((this.x > (tileWidth + 15)) && (this.x < (3 * tileWidth - 15))) { // check if this bug is in the third column
         this.currentCol = 3;
-        if ((player.currentCol == this.currentCol) && (this.currentRow == player.currentRow)) {
+        if ((player.currentCol == this.currentCol) && (this.currentRow == player.currentRow)) { // check for collision between bug and player
           debugOutput(this.name + ' is at column ' +this.currentCol, 1);
-          reset();
+          reset(); // reset game if there is a collision
         }
       }
 
-      if ((this.x > (2 * tileWidth + 15)) && (this.x < (4 * tileWidth - 15))) {
+      if ((this.x > (2 * tileWidth + 15)) && (this.x < (4 * tileWidth - 15))) { // check if this bug is in the 4th column
         this.currentCol = 4;
-        if ((player.currentCol == this.currentCol) && (this.currentRow == player.currentRow)) {
+        if ((player.currentCol == this.currentCol) && (this.currentRow == player.currentRow)) { // check for collision between bug and player
           debugOutput(this.name + ' is at column ' +this.currentCol, 1);
-          reset();
+          reset(); // reset game if there is a collision
         }
       }
 
-      if ((this.x > (3 * tileWidth + 15)) && (this.x < (5 * tileWidth - 15))) {
+      if ((this.x > (3 * tileWidth + 15)) && (this.x < (5 * tileWidth - 15))) { // check if this bug is in the fifth column
         this.currentCol = 5;
-        if ((player.currentCol == this.currentCol) && (this.currentRow == player.currentRow)) {
+        if ((player.currentCol == this.currentCol) && (this.currentRow == player.currentRow)) { // check for collision between bug and player
           debugOutput(this.name + ' is at column ' +this.currentCol, 1);
-          reset();
+          reset(); // reset game if there is a collision
         }
       }
 
       debugOutput('Bugs are at ' +this.x, 0);
-
-      // tile[[this.currentCol,this.currentRow]].hasBug = 1;
-      // debugOutput(this.name + 'is at column ' +this.currentCol, 1);
 
     } else {
       this.x = -110; // return the enemy to its starting position
@@ -99,8 +90,8 @@ Enemy.prototype.render = function() {
 var Player = function() {
   this.sprite = 'images/char-boy.png';
   this.x = tileWidth*2; // Start on the third column
-  this.y = topArea + tileHeight*3; // Start on the forth row
   this.currentCol = 3;
+  this.y = topArea + tileHeight*3; // Start on the 5th row
   this.currentRow = 5;
 }
 
@@ -109,6 +100,7 @@ var Player = function() {
 
 Player.prototype.update = function(direction) {
   debugOutput('this.x is ' +this.x, 0);
+  // let the system know which column and row the player currently occupies
   switch (this.x) {
     case (0):
     this.currentCol = 1;
@@ -227,7 +219,6 @@ Player.prototype.handleInput = function(direction) {
 }
 
 // Reset the game
-
 function reset() {
     // Reset the player
     player.x = tileWidth*2; // Start on the third column
@@ -240,6 +231,7 @@ function reset() {
 }
 
 // Now instantiate your objects.
+
 // Instantiate each enemy
 // Rows are counted from the top
 var enemyTop = new Enemy();
@@ -264,7 +256,6 @@ enemyBottom.speed = 80;
 
 // Place all enemy objects in an array called allEnemies
 var allEnemies = [enemyTop, enemyMiddle, enemyBottom];
-// var allEnemies = [enemyBottom];
 
 // Place the player object in a variable called player
 var player = new Player();
