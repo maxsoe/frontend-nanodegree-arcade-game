@@ -102,8 +102,6 @@ var Player = function() {
   this.y = topArea + tileHeight*3; // Start on the forth row
   this.currentCol = 3;
   this.currentRow = 5;
-  var previousCol = 0;
-  var previousRow = 0;
 }
 
 // This class requires an update(), render() and
@@ -175,8 +173,6 @@ Player.prototype.render = function(direction) {
 
 Player.prototype.handleInput = function(direction) {
   // Set trackers for where the player was before moving
-  var previousCol = this.currentCol;
-  var previousRow = this.currentRow;
 
   if (direction == 'left') {
     debugOutput("player pressed " +direction, 1);
