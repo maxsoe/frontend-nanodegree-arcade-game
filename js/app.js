@@ -89,7 +89,7 @@ Enemy.prototype.render = function() {
 // Now write your own player class
 var Player = function() {
   this.sprite = 'images/char-boy.png';
-  this.x = tileWidth*2; // Start on the third column
+  this.x = tileWidth*2; // Start on the 3rd column
   this.currentCol = 3;
   this.y = topArea + tileHeight*3; // Start on the 5th row
   this.currentRow = 5;
@@ -99,63 +99,11 @@ var Player = function() {
 // a handleInput() method.
 
 Player.prototype.update = function(direction) {
-  debugOutput('this.x is ' +this.x, 0);
-  // let the system know which column and row the player currently occupies
-  switch (this.x) {
-    case (0):
-    this.currentCol = 1;
-    break;
-
-    case (tileWidth):
-    this.currentCol = 2;
-    break;
-
-    case (tileWidth * 2):
-    this.currentCol = 3;
-    break;
-
-    case (tileWidth * 3):
-    this.currentCol = 4;
-    break;
-
-    case (tileWidth * 4):
-    this.currentCol = 5;
-    break;
-  }
-
-  debugOutput('this.y is ' +this.y, 0);
-  switch (this.y) {
-    case (topArea - tileHeight):
-    this.currentRow = 1;
-    break;
-
-    case (topArea):
-    this.currentRow = 2;
-    break;
-
-    case (topArea + tileHeight):
-    this.currentRow = 3;
-    break;
-
-    case (topArea + tileHeight * 2):
-    this.currentRow = 4;
-    break;
-
-    case (topArea + tileHeight * 3):
-    this.currentRow = 5;
-    break;
-
-    case (topArea + tileHeight * 4):
-    this.currentRow = 6;
-    break;
-  }
-
   // Reset the game if the player makes it to the top row
   if (this.currentRow == 1) {
     debugOutput('Row 1 deteced, reset the game', 1);
     reset(); // Reset the game
   }
-
 }
 
 Player.prototype.render = function(direction) {
@@ -221,8 +169,10 @@ Player.prototype.handleInput = function(direction) {
 // Reset the game
 function reset() {
     // Reset the player
-    player.x = tileWidth*2; // Start on the third column
-    player.y = topArea + tileHeight*3; // Start on the forth row
+    player.x = tileWidth*2; // Start on the 3rd column
+    player.currentCol = 3;
+    player.y = topArea + tileHeight*3; // Start on the 5th row
+    player.currentRow = 5;
 
     // Reset the enemies
     enemyTop.x = -220; // Top row enemy starting position
