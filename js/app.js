@@ -42,39 +42,39 @@ Enemy.prototype.update = function(dt) {
       if ((this.x > (-tileWidth + 15)) && (this.x < (tileWidth - 15))) {
         this.currentCol = 1;
         if ((player.currentCol == this.currentCol) && (this.currentRow == player.currentRow)) {
-          debugOutput(this.name + 'is at column ' +this.currentCol, 1);
+          debugOutput(this.name + ' is at column ' +this.currentCol, 1);
         }
       }
 
       if ((this.x > 15) && (this.x < (2 * tileWidth - 15))) {
         this.currentCol = 2;
         if ((player.currentCol == this.currentCol) && (this.currentRow == player.currentRow)) {
-          debugOutput(this.name + 'is at column ' +this.currentCol, 1);
+          debugOutput(this.name + ' is at column ' +this.currentCol, 1);
         }
       }
 
       if ((this.x > (tileWidth + 15)) && (this.x < (3 * tileWidth - 15))) {
         this.currentCol = 3;
         if ((player.currentCol == this.currentCol) && (this.currentRow == player.currentRow)) {
-          debugOutput(this.name + 'is at column ' +this.currentCol, 1);
+          debugOutput(this.name + ' is at column ' +this.currentCol, 1);
         }
       }
 
       if ((this.x > (2 * tileWidth + 15)) && (this.x < (4 * tileWidth - 15))) {
         this.currentCol = 4;
         if ((player.currentCol == this.currentCol) && (this.currentRow == player.currentRow)) {
-          debugOutput(this.name + 'is at column ' +this.currentCol, 1);
+          debugOutput(this.name + ' is at column ' +this.currentCol, 1);
         }
       }
 
       if ((this.x > (3 * tileWidth + 15)) && (this.x < (5 * tileWidth - 15))) {
         this.currentCol = 5;
         if ((player.currentCol == this.currentCol) && (this.currentRow == player.currentRow)) {
-          debugOutput(this.name + 'is at column ' +this.currentCol, 1);
+          debugOutput(this.name + ' is at column ' +this.currentCol, 1);
         }
       }
 
-      debugOutput('Bugs are at ' +this.x, 1);
+      debugOutput('Bugs are at ' +this.x, 0);
 
       // tile[[this.currentCol,this.currentRow]].hasBug = 1;
       // debugOutput(this.name + 'is at column ' +this.currentCol, 1);
@@ -224,20 +224,6 @@ Player.prototype.handleInput = function(direction) {
 
   // Play back the tile the player's currently in
   debugOutput("Player is at " +this.currentCol +"," +this.currentRow, 1);
-  debugOutput("Player was previously at " +previousCol +"," +previousRow, 1);
-  tile[[previousCol,previousRow]].hasPlayer = 0;
-  tile[[this.currentCol,this.currentRow]].hasPlayer = 1;
-  debugOutput(previousCol +"," +previousRow +" hasPlayer = " +tile[[previousCol,previousRow]].hasPlayer, 1);
-  debugOutput(this.currentCol +"," +this.currentRow +" hasPlayer = " +tile[[this.currentCol,this.currentRow]].hasPlayer, 1);
-
-  // Show which tiles has Player in it
-  for (var y = 1; y < 7; y++) { // outter loop scans through each row. There are 6 rows.
-    for (var x = 1; x < 6; x++) { //inner loop scans through each column. There are 5 columns.
-      if (tile[[x,y]].hasPlayer == 1) {
-        debugOutput(x +"," +y +" has player", 1);
-      }
-    }
-  }
 }
 
 // Reset the game
@@ -252,41 +238,6 @@ function reset() {
     enemyMiddle.x = -110; // Middle row enemy starting position
     enemyBottom.x = -350; // Bottom row enemy starting position
 }
-
-// Set up Tile objects to determine whether enemies of the player are currently on those tiles
-// Co-ordinates are based on rows and columns, starting from the top right
-var Tile = function (xcoord, ycoord) {
-  this.xcoord = xcoord;
-  this.ycoord = ycoord;
-  this.hasBug = 0; // On instantiation, the current tile does not have the bug on it
-  this.hasPlayer = 0; // On instantiation, the current tile does not have the player on it
-}
-
-Tile.prototype.clearBugs = function () {
-  for (var y = 1; y < 7; y++) { // outter loop scans through each row. There are 6 rows.
-    for (var x = 1; x < 6; x++) { //inner loop scans through each column. There are 5 columns.
-      tile[[x,y]].hasBug = 0;
-    }
-  }
-}
-
-Tile.prototype.clearPlayer = function () {
-  for (var y = 1; y < 7; y++) { // outter loop scans through each row. There are 6 rows.
-    for (var x = 1; x < 6; x++) { //inner loop scans through each column. There are 5 columns.
-      tile[[x,y]].hasPlayer = 0;
-    }
-  }
-}
-
-// instantiate the tiles
-var tile = [[]]; // create a two-dimensional array to represent the grid of tiles using an x-y coordinate system
-
-for (var y = 1; y < 7; y++) { // outter loop scans through each row. There are 6 rows.
-  for (var x = 1; x < 6; x++) { //inner loop scans through each column. There are 5 columns.
-    tile[[x,y]] = new Tile(x,y);
-  }
-}
-debugOutput(tile, 1);
 
 // Now instantiate your objects.
 // Instantiate each enemy
