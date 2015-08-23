@@ -18,11 +18,11 @@ var Enemy = function() {
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
-    var x = -110; //starting position for enemies
-    var name = "Bug";
-    var currentCol = 0;
-    var currentRow = 0;
-    this.speed = 100;
+    this.x = -110; //default position for enemies
+    this.name = "Bug";
+    this.currentCol = 0;
+    this.currentRow = 2; //default row when an enemy is generated
+    this.speed = 100; //default speed for enemies
 }
 
 // Update the enemy's position, required method for game
@@ -37,35 +37,47 @@ Enemy.prototype.update = function(dt) {
     if (this.x < 550) {
       // this.x++;
       this.x = this.x + dt*this.speed;
-      debugOutput('Bugs are at ' +this.x, 0);
+      // this.x = this.x + 1;
 
-      switch (this.x) {
-        case (-tileWidth):
+      if ((this.x > (-tileWidth + 15)) && (this.x < (tileWidth - 15))) {
         this.currentCol = 1;
-        break;
-
-        case (0):
-        this.currentCol = 2;
-        break;
-
-        case (tileWidth):
-        this.currentCol = 3;
-        break;
-
-        case (tileWidth * 2):
-        this.currentCol = 4;
-        break;
-
-        case (tileWidth * 3):
-        this.currentCol = 5;
-        break;
-
-        case (tileWidth * 4):
-        this.currentCol = 6;
-        break;
+        if ((player.currentCol == this.currentCol) && (this.currentRow == player.currentRow)) {
+          debugOutput(this.name + 'is at column ' +this.currentCol, 1);
+        }
       }
+
+      if ((this.x > 15) && (this.x < (2 * tileWidth - 15))) {
+        this.currentCol = 2;
+        if ((player.currentCol == this.currentCol) && (this.currentRow == player.currentRow)) {
+          debugOutput(this.name + 'is at column ' +this.currentCol, 1);
+        }
+      }
+
+      if ((this.x > (tileWidth + 15)) && (this.x < (3 * tileWidth - 15))) {
+        this.currentCol = 3;
+        if ((player.currentCol == this.currentCol) && (this.currentRow == player.currentRow)) {
+          debugOutput(this.name + 'is at column ' +this.currentCol, 1);
+        }
+      }
+
+      if ((this.x > (2 * tileWidth + 15)) && (this.x < (4 * tileWidth - 15))) {
+        this.currentCol = 4;
+        if ((player.currentCol == this.currentCol) && (this.currentRow == player.currentRow)) {
+          debugOutput(this.name + 'is at column ' +this.currentCol, 1);
+        }
+      }
+
+      if ((this.x > (3 * tileWidth + 15)) && (this.x < (5 * tileWidth - 15))) {
+        this.currentCol = 5;
+        if ((player.currentCol == this.currentCol) && (this.currentRow == player.currentRow)) {
+          debugOutput(this.name + 'is at column ' +this.currentCol, 1);
+        }
+      }
+
+      debugOutput('Bugs are at ' +this.x, 1);
+
       // tile[[this.currentCol,this.currentRow]].hasBug = 1;
-      debugOutput(this.name + 'is at column ' +this.currentCol, 0);
+      // debugOutput(this.name + 'is at column ' +this.currentCol, 1);
 
     } else {
       this.x = -110;
@@ -74,7 +86,7 @@ Enemy.prototype.update = function(dt) {
 }
 
 // Draw the enemy on the screen, required method for game
-Enemy.prototype.render = function() {;
+Enemy.prototype.render = function() {
   ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 }
 
@@ -93,6 +105,7 @@ var Player = function() {
 // a handleInput() method.
 
 Player.prototype.update = function(direction) {
+  // TODO: this function may not even be necessary
   debugOutput('this.x is ' +this.x, 0);
   switch (this.x) {
     case (0):
@@ -225,7 +238,6 @@ Player.prototype.handleInput = function(direction) {
       }
     }
   }
-  
 }
 
 // Reset the game
@@ -236,9 +248,9 @@ function reset() {
     player.y = topArea + tileHeight*3; // Start on the forth row
 
     // Reset the enemies
-    enemyTop.x = -220; // Top row enemy
-    enemyMiddle.x = -110; // Middle row enemy
-    enemyBottom.x = -350; // Bottom row enemy
+    enemyTop.x = -220; // Top row enemy starting position
+    enemyMiddle.x = -110; // Middle row enemy starting position
+    enemyBottom.x = -350; // Bottom row enemy starting position
 }
 
 // Set up Tile objects to determine whether enemies of the player are currently on those tiles
@@ -281,22 +293,27 @@ debugOutput(tile, 1);
 // Rows are counted from the top
 var enemyTop = new Enemy();
 enemyTop.y = 0 + topArea;
+enemyTop.currentRow = 2;
 enemyTop.name = "Albert";
-enemyTop.x = -220;
+enemyTop.x = -220; // Top row enemy starting position
 enemyTop.speed = 200;
 
 var enemyMiddle = new Enemy();
 enemyMiddle.y = 0 + topArea + tileHeight;
+enemyMiddle.currentRow = 3;
 enemyMiddle.name = "Brandy";
+// middle row enemy starting position and speed uses default values
 
 var enemyBottom = new Enemy();
 enemyBottom.y = 0 + topArea + tileHeight*2;
+enemyBottom.currentRow = 4;
 enemyBottom.name = "Clarice";
-enemyBottom.x = -350;
+enemyBottom.x = -350; // Bottom row enemy starting position
 enemyBottom.speed = 80;
 
 // Place all enemy objects in an array called allEnemies
 var allEnemies = [enemyTop, enemyMiddle, enemyBottom];
+// var allEnemies = [enemyBottom];
 
 // Place the player object in a variable called player
 var player = new Player();
