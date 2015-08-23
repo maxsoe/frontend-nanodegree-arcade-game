@@ -3,16 +3,8 @@ var tileWidth = 101;
 var topArea = 60;
 var tileHeight = 83;
 
-// For debugging purposes
-function debugOutput(string, debugMode) {
-  if (debugMode == 1) {
-    console.log(string);
-  }
-}
-
 // Enemies our player must avoid
 var Enemy = function() {
-
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
@@ -29,14 +21,12 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
-
     if (this.x < 550) { // while the bugs on the screen
       this.x = this.x + dt*this.speed; // make each enemy move the right based on their own speed and the dt offset
 
       if ((this.x > (-tileWidth + 15)) && (this.x < (tileWidth - 15))) { // check if this bug is in the 1st column
         this.currentCol = 1;
         if ((player.currentCol == this.currentCol) && (this.currentRow == player.currentRow)) { // check for collision between bug and player
-          debugOutput(this.name + ' is at column ' +this.currentCol, 1);
           reset(); // reset game if there is a collision
         }
       }
@@ -44,7 +34,6 @@ Enemy.prototype.update = function(dt) {
       if ((this.x > 15) && (this.x < (2 * tileWidth - 15))) { // check if this bug is in the 2nd column
         this.currentCol = 2;
         if ((player.currentCol == this.currentCol) && (this.currentRow == player.currentRow)) { // check for collision between bug and player
-          debugOutput(this.name + ' is at column ' +this.currentCol, 1);
           reset(); // reset game if there is a collision
         }
       }
@@ -52,7 +41,6 @@ Enemy.prototype.update = function(dt) {
       if ((this.x > (tileWidth + 15)) && (this.x < (3 * tileWidth - 15))) { // check if this bug is in the third column
         this.currentCol = 3;
         if ((player.currentCol == this.currentCol) && (this.currentRow == player.currentRow)) { // check for collision between bug and player
-          debugOutput(this.name + ' is at column ' +this.currentCol, 1);
           reset(); // reset game if there is a collision
         }
       }
@@ -60,7 +48,6 @@ Enemy.prototype.update = function(dt) {
       if ((this.x > (2 * tileWidth + 15)) && (this.x < (4 * tileWidth - 15))) { // check if this bug is in the 4th column
         this.currentCol = 4;
         if ((player.currentCol == this.currentCol) && (this.currentRow == player.currentRow)) { // check for collision between bug and player
-          debugOutput(this.name + ' is at column ' +this.currentCol, 1);
           reset(); // reset game if there is a collision
         }
       }
@@ -68,17 +55,13 @@ Enemy.prototype.update = function(dt) {
       if ((this.x > (3 * tileWidth + 15)) && (this.x < (5 * tileWidth - 15))) { // check if this bug is in the fifth column
         this.currentCol = 5;
         if ((player.currentCol == this.currentCol) && (this.currentRow == player.currentRow)) { // check for collision between bug and player
-          debugOutput(this.name + ' is at column ' +this.currentCol, 1);
           reset(); // reset game if there is a collision
         }
       }
 
-      debugOutput('Bugs are at ' +this.x, 0);
-
     } else {
       this.x = -110; // return the enemy to its starting position
     }
-
 }
 
 // Draw the enemy on the screen, required method for game
@@ -101,69 +84,44 @@ var Player = function() {
 Player.prototype.update = function(direction) {
   // Reset the game if the player makes it to the top row
   if (this.currentRow == 1) {
-    debugOutput('Row 1 deteced, reset the game', 1);
     reset(); // Reset the game
   }
 }
 
 Player.prototype.render = function(direction) {
   ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-  debugOutput('Player is at (' +this.x +"," +this.y +')', 0);
 }
 
 Player.prototype.handleInput = function(direction) {
   // Set trackers for where the player was before moving
 
   if (direction == 'left') {
-    debugOutput("player pressed " +direction, 1);
-    debugOutput("this.x was at " +this.x +". tileWidth was " +tileWidth, 0);
     if (this.x > 0 ) { // ensure that we don't go past the first column
       this.x = this.x - tileWidth;
-      debugOutput("valid move");
       this.currentCol = this.currentCol - 1;
-      debugOutput("currentCol is " +this.currentCol, 1);
     }
-    debugOutput("this.x is at " +this.x +". tileWidth is " +tileWidth, 0);
   }
 
   if (direction == 'up') {
-    debugOutput("player pressed " +direction, 1);
-    debugOutput("this.y was at " +this.y +". tileHeight was " +tileHeight);
     if (this.y > 0 ) { // ensure that we don't go past the first row
       this.y = this.y - tileHeight;
-      debugOutput("valid move");
       this.currentRow = this.currentRow - 1;
-      debugOutput("currentRow is " +this.currentRow, 1);
     }
-    debugOutput("this.y is at " +this.y +". tileHeight is " +tileHeight);
   }
 
   if (direction == 'right') {
-    debugOutput("player pressed " +direction, 1);
-    debugOutput("this.x was at " +this.x +". tileWidth was " +tileWidth);
     if (this.x < tileWidth*4 ) { // ensure that we don't go past the last column
       this.x = this.x + tileWidth;
-      debugOutput("valid move");
       this.currentCol = this.currentCol + 1;
-      debugOutput("currentCol is " +this.currentCol, 1);
     }
-    debugOutput("this.x is at " +this.x +". tileWidth is " +tileWidth);
   }
 
   if (direction == 'down') {
-    debugOutput("player pressed " +direction, 1);
-    debugOutput("this.y was at " +this.y +". tileHeight was " +tileHeight);
     if (this.y < (tileHeight*4 + topArea) ) { // ensure that we don't go past the bottow row
       this.y = this.y + tileHeight;
-      debugOutput("valid move");
       this.currentRow = this.currentRow + 1;
-      debugOutput("currentRow is " +this.currentRow, 1);
     }
-    debugOutput("this.y is at " +this.y +". tileHeight is " +tileHeight);
   }
-
-  // Play back the tile the player's currently in
-  debugOutput("Player is at " +this.currentCol +"," +this.currentRow, 1);
 }
 
 // Reset the game
