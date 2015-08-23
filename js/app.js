@@ -80,7 +80,7 @@ Enemy.prototype.update = function(dt) {
       // debugOutput(this.name + 'is at column ' +this.currentCol, 1);
 
     } else {
-      this.x = -110;
+      this.x = -110; // return the enemy to its starting position
     }
 
 }
