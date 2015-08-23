@@ -36,13 +36,14 @@ Enemy.prototype.update = function(dt) {
 
     if (this.x < 550) {
       // this.x++;
-      this.x = this.x + dt*this.speed;
+      this.x = this.x + dt*this.speed; // make each enemy move the right based on their own speed and the dt offset
       // this.x = this.x + 1;
 
       if ((this.x > (-tileWidth + 15)) && (this.x < (tileWidth - 15))) {
         this.currentCol = 1;
         if ((player.currentCol == this.currentCol) && (this.currentRow == player.currentRow)) {
           debugOutput(this.name + ' is at column ' +this.currentCol, 1);
+          reset();
         }
       }
 
@@ -50,6 +51,7 @@ Enemy.prototype.update = function(dt) {
         this.currentCol = 2;
         if ((player.currentCol == this.currentCol) && (this.currentRow == player.currentRow)) {
           debugOutput(this.name + ' is at column ' +this.currentCol, 1);
+          reset();
         }
       }
 
@@ -57,6 +59,7 @@ Enemy.prototype.update = function(dt) {
         this.currentCol = 3;
         if ((player.currentCol == this.currentCol) && (this.currentRow == player.currentRow)) {
           debugOutput(this.name + ' is at column ' +this.currentCol, 1);
+          reset();
         }
       }
 
@@ -64,6 +67,7 @@ Enemy.prototype.update = function(dt) {
         this.currentCol = 4;
         if ((player.currentCol == this.currentCol) && (this.currentRow == player.currentRow)) {
           debugOutput(this.name + ' is at column ' +this.currentCol, 1);
+          reset();
         }
       }
 
@@ -71,6 +75,7 @@ Enemy.prototype.update = function(dt) {
         this.currentCol = 5;
         if ((player.currentCol == this.currentCol) && (this.currentRow == player.currentRow)) {
           debugOutput(this.name + ' is at column ' +this.currentCol, 1);
+          reset();
         }
       }
 
@@ -105,7 +110,6 @@ var Player = function() {
 // a handleInput() method.
 
 Player.prototype.update = function(direction) {
-  // TODO: this function may not even be necessary
   debugOutput('this.x is ' +this.x, 0);
   switch (this.x) {
     case (0):
