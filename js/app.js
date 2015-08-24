@@ -71,7 +71,7 @@ Enemy.prototype.render = function() {
 // Reset the enemies
 Enemy.prototype.reset = function(position) {
   this.x = position;
-}
+};
 
 // Now write your own player class
 var Player = function() {
