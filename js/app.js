@@ -80,14 +80,14 @@ var Player = function() {
 // This class requires an update(), render() and
 // a handleInput() method.
 
-Player.prototype.update = function(direction) {
+Player.prototype.update = function() {
   // Reset the game if the player makes it to the top row
   if (this.currentRow == 1) {
     reset(); // Reset the game
   }
 };
 
-Player.prototype.render = function(direction) {
+Player.prototype.render = function() {
   ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
