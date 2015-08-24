@@ -68,6 +68,11 @@ Enemy.prototype.render = function() {
   ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
+// Reset the enemies
+Enemy.prototype.reset = function(position) {
+  this.x = position;
+}
+
 // Now write your own player class
 var Player = function() {
   this.sprite = 'images/char-boy.png';
@@ -123,6 +128,7 @@ Player.prototype.handleInput = function(direction) {
   }
 };
 
+// Reset the player
 Player.prototype.reset = function() {
   this.x = TILE_WIDTH * 2; // Start on the 3rd column
   this.currentCol = 3;
@@ -136,12 +142,10 @@ function reset() {
   player.reset();
 
   // Reset the enemies
-  enemyTop.x = -220; // Top row enemy starting position
-  enemyMiddle.x = -110; // Middle row enemy starting position
-  enemyBottom.x = -350; // Bottom row enemy starting position
+  enemyTop.reset(-220); // Top row enemy starting position
+  enemyMiddle.reset(-110); // Middle row enemy starting position
+  enemyBottom.reset(-350); // Bottom row enemy starting position
 };
-
-// Now instantiate your objects.
 
 // Instantiate each enemy
 // Rows are counted from the top
