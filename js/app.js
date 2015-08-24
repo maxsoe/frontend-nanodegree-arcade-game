@@ -4,14 +4,13 @@ var TOP_AREA = 60;
 var TILE_HEIGHT = 83;
 
 // Enemies our player must avoid
-var Enemy = function() {
-  // The image/sprite for our enemies, this uses
-  // a helper we've provided to easily load images
-  this.sprite = 'images/enemy-bug.png';
-  this.x = -110; // default start position for enemies
+var Enemy = function(xValue, yValue, row, speed) {
+  this.sprite = 'images/enemy-bug.png'; // The image/sprite for our enemies, this uses a helper we've provided to easily load images
+  this.x = xValue; // column when enemy is generated
   this.currentCol = 0;
-  this.currentRow = 2; // default row when an enemy is generated
-  this.speed = 100; // default speed for enemies
+  this.y = yValue; // row when enemy is generated
+  this.currentRow = row; //
+  this.speed = speed; // default speed for enemy
 };
 
 // Update the enemy's position, required method for game
@@ -69,8 +68,8 @@ Enemy.prototype.render = function() {
 };
 
 // Reset the enemies
-Enemy.prototype.reset = function(position) {
-  this.x = position;
+Enemy.prototype.reset = function(xValue) {
+  this.x = xValue;
 };
 
 // Now write your own player class
@@ -98,7 +97,6 @@ Player.prototype.render = function() {
 
 Player.prototype.handleInput = function(direction) {
   // Set trackers for where the player was before moving
-
   if (direction == 'left') {
     if (this.x > 0) { // ensure that we don't go past the first column
       this.x = this.x - TILE_WIDTH;
@@ -149,22 +147,9 @@ function reset() {
 
 // Instantiate each enemy
 // Rows are counted from the top
-var enemyTop = new Enemy();
-enemyTop.y = 0 + TOP_AREA;
-enemyTop.currentRow = 2;
-enemyTop.x = -220; // Top row enemy starting position
-enemyTop.speed = 200;
-
-var enemyMiddle = new Enemy();
-enemyMiddle.y = 0 + TOP_AREA + TILE_HEIGHT;
-enemyMiddle.currentRow = 3;
-// middle row enemy starting position and speed uses default values
-
-var enemyBottom = new Enemy();
-enemyBottom.y = 0 + TOP_AREA + TILE_HEIGHT * 2;
-enemyBottom.currentRow = 4;
-enemyBottom.x = -350; // Bottom row enemy starting position
-enemyBottom.speed = 80;
+var enemyTop = new Enemy(-220, TOP_AREA, 2, 200);
+var enemyMiddle = new Enemy(-110, TOP_AREA + TILE_HEIGHT, 3, 150);
+var enemyBottom = new Enemy(-350, TOP_AREA + TILE_HEIGHT * 2, 4, 100);
 
 // Place all enemy objects in an array called allEnemies
 var allEnemies = [enemyTop, enemyMiddle, enemyBottom];
