@@ -1,4 +1,4 @@
-// Some variables to measure around the canvas
+// Some values to measure around the canvas
 var TILE_WIDTH = 101;
 var TOP_AREA = 60;
 var TILE_HEIGHT = 83;
