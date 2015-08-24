@@ -123,13 +123,17 @@ Player.prototype.handleInput = function(direction) {
   }
 };
 
+Player.prototype.reset = function() {
+  this.x = TILE_WIDTH * 2; // Start on the 3rd column
+  this.currentCol = 3;
+  this.y = TOP_AREA + TILE_HEIGHT * 3; // Start on the 5th row
+  this.currentRow = 5;
+};
+
 // Reset the game
 function reset() {
   // Reset the player
-  player.x = TILE_WIDTH * 2; // Start on the 3rd column
-  player.currentCol = 3;
-  player.y = TOP_AREA + TILE_HEIGHT * 3; // Start on the 5th row
-  player.currentRow = 5;
+  player.reset();
 
   // Reset the enemies
   enemyTop.x = -220; // Top row enemy starting position
